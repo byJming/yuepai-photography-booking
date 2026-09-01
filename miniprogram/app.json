@@ -1,0 +1,41 @@
+{
+  "pages": [
+    "pages/works/index",
+    "pages/booking/index",
+    "pages/profile/index",
+    "pages/portfolio-detail/index",
+    "pages/booking-form/index",
+    "pages/booking-detail/index",
+    "pages/policies/index"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#F7F3ED",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "摄影预约",
+    "backgroundColor": "#F7F3ED",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#7B756E",
+    "selectedColor": "#C96C56",
+    "backgroundColor": "#FFFCF8",
+    "list": [
+      {
+        "pagePath": "pages/works/index",
+        "text": "作品"
+      },
+      {
+        "pagePath": "pages/booking/index",
+        "text": "预约"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

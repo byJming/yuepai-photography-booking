@@ -1,0 +1,11 @@
+[Unit]
+Description=Run Yuepai Retention Cleanup Daily
+
+[Timer]
+OnCalendar=*-*-* 03:15:00
+Persistent=true
+RandomizedDelaySec=10m
+Unit=yuepai-retention.service
+
+[Install]
+WantedBy=timers.target

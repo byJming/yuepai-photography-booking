@@ -1,0 +1,46 @@
+<view class="detail-page">
+  <view wx:if="{{loading}}" class="detail-state">
+    <view class="detail-state__title">正在加载作品</view>
+    <view class="detail-state__note">请稍候片刻</view>
+  </view>
+
+  <view wx:elif="{{errorMessage}}" class="detail-state">
+    <view class="detail-state__title">暂时无法查看这组作品</view>
+    <view class="detail-state__note">{{errorMessage}}</view>
+    <button class="secondary-button detail-retry" bindtap="retryLoad">重新加载</button>
+  </view>
+
+  <block wx:elif="{{series}}">
+    <view class="detail-head">
+      <view class="detail-tags">
+        <text wx:for="{{series.tags}}" wx:key="*this" class="tag">{{item}}</text>
+      </view>
+      <view class="detail-title">{{series.title}}</view>
+      <view class="detail-subtitle">{{series.subtitle}}</view>
+      <view class="detail-meta">
+        <text>{{series.date}}</text>
+        <view wx:if="{{series.location}}" class="meta-dot"></view>
+        <text wx:if="{{series.location}}">{{series.location}}</text>
+      </view>
+      <view class="detail-intro">{{series.intro}}</view>
+    </view>
+
+    <view class="gallery">
+      <view wx:for="{{series.images}}" wx:key="id" class="gallery-item">
+        <image class="gallery-image" src="{{item.url}}" mode="widthFix" lazy-load></image>
+        <view wx:if="{{item.caption}}" class="gallery-caption">{{item.caption}}</view>
+      </view>
+    </view>
+
+    <view wx:if="{{series.images.length === 0}}" class="detail-state detail-state--inline">
+      <view class="detail-state__title">图片正在整理中</view>
+      <view class="detail-state__note">稍后再来看看吧</view>
+    </view>
+
+    <view class="detail-ending">
+      <text class="ending-mark">“</text>
+      <text class="ending-copy">好看的照片不是变成另一个人，是终于看见原本的自己。</text>
+      <button class="primary-button" bindtap="startBooking">带着喜欢的感觉去预约</button>
+    </view>
+  </block>
+</view>

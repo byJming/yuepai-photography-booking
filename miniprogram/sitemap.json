@@ -1,0 +1,17 @@
+{
+  "desc": "允许索引公开作品页面，预约与个人页面不参与索引",
+  "rules": [
+    {
+      "action": "allow",
+      "page": "pages/works/index"
+    },
+    {
+      "action": "allow",
+      "page": "pages/portfolio-detail/index"
+    },
+    {
+      "action": "disallow",
+      "page": "*"
+    }
+  ]
+}

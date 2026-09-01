@@ -1,0 +1,8 @@
+* text=auto
+
+*.sh text eol=lf
+deploy/scripts/*.py text eol=lf
+deploy/systemd/* text eol=lf
+deploy/nginx/* text eol=lf
+deploy/logrotate/* text eol=lf
+deploy/env/* text eol=lf

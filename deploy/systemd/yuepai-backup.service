@@ -1,0 +1,26 @@
+[Unit]
+Description=Yuepai Encrypted Database and Media Backup
+After=network-online.target mysqld.service
+
+[Service]
+Type=oneshot
+User=yuepai
+Group=yuepai
+EnvironmentFile=/etc/example-app/backup.env
+ExecStart=/opt/example-app/current/deploy/scripts/backup.sh
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+ReadOnlyPaths=/etc/example-app
+ReadWritePaths=/srv/example-app/backups /opt/example-app/shared/tmp
+StandardOutput=journal
+StandardError=journal

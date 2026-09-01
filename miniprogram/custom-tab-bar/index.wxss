@@ -1,0 +1,147 @@
+.tab-bar {
+  position: fixed;
+  z-index: 99;
+  right: 20rpx;
+  bottom: 18rpx;
+  left: 20rpx;
+  display: flex;
+  height: 112rpx;
+  background: rgba(255, 252, 248, 0.96);
+  border: 1rpx solid rgba(219, 208, 196, 0.9);
+  border-radius: 34rpx;
+  box-shadow: 0 18rpx 50rpx rgba(65, 49, 38, 0.12);
+  backdrop-filter: blur(18rpx);
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.tab-item {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  color: #817a73;
+}
+
+.tab-item--active {
+  color: #c96c56;
+}
+
+.tab-item--active::before {
+  position: absolute;
+  top: 10rpx;
+  width: 42rpx;
+  height: 5rpx;
+  background: #c96c56;
+  border-radius: 999rpx;
+  content: "";
+}
+
+.tab-icon {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.tab-text {
+  font-size: 21rpx;
+  font-weight: 550;
+}
+
+.icon-picture {
+  position: relative;
+  width: 38rpx;
+  height: 32rpx;
+  margin-top: 4rpx;
+  border: 3rpx solid currentColor;
+  border-radius: 7rpx;
+}
+
+.icon-picture__sun {
+  position: absolute;
+  top: 5rpx;
+  right: 6rpx;
+  width: 6rpx;
+  height: 6rpx;
+  border: 2rpx solid currentColor;
+  border-radius: 50%;
+}
+
+.icon-picture__hill {
+  position: absolute;
+  right: 4rpx;
+  bottom: 5rpx;
+  left: 4rpx;
+  height: 12rpx;
+  border-bottom: 3rpx solid currentColor;
+  transform: skewY(-20deg);
+}
+
+.icon-calendar {
+  position: relative;
+  width: 36rpx;
+  height: 34rpx;
+  margin-top: 2rpx;
+  border: 3rpx solid currentColor;
+  border-radius: 7rpx;
+}
+
+.icon-calendar::before,
+.icon-calendar::after {
+  position: absolute;
+  top: -7rpx;
+  width: 3rpx;
+  height: 10rpx;
+  background: currentColor;
+  border-radius: 3rpx;
+  content: "";
+}
+
+.icon-calendar::before {
+  left: 8rpx;
+}
+
+.icon-calendar::after {
+  right: 8rpx;
+}
+
+.icon-calendar__line {
+  position: absolute;
+  top: 9rpx;
+  right: 4rpx;
+  left: 4rpx;
+  height: 3rpx;
+  background: currentColor;
+  opacity: 0.7;
+}
+
+.icon-profile {
+  position: relative;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.icon-profile__head {
+  position: absolute;
+  top: 1rpx;
+  left: 13rpx;
+  width: 14rpx;
+  height: 14rpx;
+  border: 3rpx solid currentColor;
+  border-radius: 50%;
+}
+
+.icon-profile__body {
+  position: absolute;
+  right: 4rpx;
+  bottom: 0;
+  left: 4rpx;
+  height: 18rpx;
+  border: 3rpx solid currentColor;
+  border-bottom: 0;
+  border-radius: 22rpx 22rpx 0 0;
+}

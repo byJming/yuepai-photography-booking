@@ -1,0 +1,25 @@
+<view class="tab-bar safe-bottom">
+  <view
+    wx:for="{{list}}"
+    wx:key="pagePath"
+    class="tab-item {{selected === index ? 'tab-item--active' : ''}}"
+    data-index="{{index}}"
+    data-path="{{item.pagePath}}"
+    bindtap="switchTab"
+  >
+    <view class="tab-icon tab-icon--{{item.icon}}">
+      <view wx:if="{{item.icon === 'works'}}" class="icon-picture">
+        <view class="icon-picture__sun"></view>
+        <view class="icon-picture__hill"></view>
+      </view>
+      <view wx:elif="{{item.icon === 'calendar'}}" class="icon-calendar">
+        <view class="icon-calendar__line"></view>
+      </view>
+      <view wx:else class="icon-profile">
+        <view class="icon-profile__head"></view>
+        <view class="icon-profile__body"></view>
+      </view>
+    </view>
+    <text class="tab-text">{{item.text}}</text>
+  </view>
+</view>

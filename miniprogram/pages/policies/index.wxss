@@ -1,0 +1,68 @@
+.policy-page {
+  min-height: 100vh;
+  padding: 46rpx 36rpx 90rpx;
+  background: var(--paper);
+}
+
+.policy-head {
+  padding-bottom: 44rpx;
+  border-bottom: 1rpx solid var(--line);
+}
+
+.policy-kicker {
+  color: var(--terracotta);
+  font-size: 18rpx;
+  letter-spacing: 4rpx;
+}
+
+.policy-title {
+  margin-top: 18rpx;
+  font-size: 43rpx;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.policy-version {
+  margin-top: 14rpx;
+  color: var(--soft);
+  font-size: 21rpx;
+}
+
+.policy-section {
+  display: flex;
+  padding: 42rpx 0;
+  border-bottom: 1rpx solid var(--line);
+}
+
+.policy-number {
+  flex: 0 0 68rpx;
+  color: var(--terracotta);
+  font-family: Georgia, serif;
+  font-size: 24rpx;
+}
+
+.policy-content {
+  flex: 1;
+}
+
+.policy-subtitle {
+  font-size: 29rpx;
+  font-weight: 650;
+}
+
+.policy-text {
+  margin-top: 16rpx;
+  color: var(--muted);
+  font-size: 24rpx;
+  line-height: 1.9;
+}
+
+.policy-note {
+  margin-top: 42rpx;
+  padding: 26rpx;
+  color: var(--muted);
+  background: #eee7dc;
+  border-radius: 22rpx;
+  font-size: 21rpx;
+  line-height: 1.65;
+}

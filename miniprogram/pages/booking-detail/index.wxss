@@ -1,0 +1,261 @@
+.detail-shell {
+  min-height: 100vh;
+  padding: 24rpx 32rpx 80rpx;
+  background: var(--paper);
+}
+
+.success-banner {
+  margin-bottom: 20rpx;
+  padding: 18rpx 22rpx;
+  color: #67705d;
+  background: #e8ece3;
+  border-radius: 18rpx;
+  font-size: 21rpx;
+  text-align: center;
+}
+
+.status-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48rpx 20rpx 42rpx;
+  text-align: center;
+}
+
+.status-clock {
+  position: relative;
+  width: 86rpx;
+  height: 86rpx;
+  border: 4rpx solid var(--moss);
+  border-radius: 50%;
+}
+
+.clock-hand {
+  position: absolute;
+  bottom: 40rpx;
+  left: 40rpx;
+  width: 4rpx;
+  background: var(--moss);
+  border-radius: 4rpx;
+  transform-origin: center bottom;
+}
+
+.clock-hand--hour {
+  height: 23rpx;
+  transform: rotate(0deg);
+}
+
+.clock-hand--minute {
+  height: 30rpx;
+  transform: rotate(112deg);
+}
+
+.status-title {
+  margin-top: 24rpx;
+  color: var(--moss);
+  font-size: 40rpx;
+  font-weight: 650;
+}
+
+.status-note {
+  width: 84%;
+  margin-top: 14rpx;
+  color: var(--muted);
+  font-size: 23rpx;
+  line-height: 1.65;
+}
+
+.summary {
+  display: flex;
+  padding: 16rpx;
+}
+
+.summary-cover {
+  width: 190rpx;
+  height: 230rpx;
+  border-radius: 22rpx;
+}
+
+.summary-content {
+  flex: 1;
+  padding: 12rpx 16rpx 8rpx 24rpx;
+}
+
+.summary-title {
+  margin-bottom: 20rpx;
+  font-size: 28rpx;
+  font-weight: 650;
+}
+
+.summary-line {
+  display: flex;
+  align-items: center;
+  margin-top: 12rpx;
+  color: var(--muted);
+  font-size: 21rpx;
+}
+
+.summary-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34rpx;
+  height: 34rpx;
+  margin-right: 12rpx;
+  color: var(--terracotta);
+  background: #f3dfd7;
+  border-radius: 9rpx;
+  font-size: 17rpx;
+}
+
+.contact-card {
+  margin-top: 22rpx;
+  padding: 8rpx 26rpx;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 84rpx;
+  color: var(--muted);
+  border-bottom: 1rpx solid var(--line);
+  font-size: 22rpx;
+}
+
+.contact-row:last-child {
+  border-bottom: 0;
+}
+
+.contact-row text:last-child {
+  color: var(--ink);
+}
+
+.timeline-card {
+  margin-top: 22rpx;
+  padding: 30rpx 26rpx 14rpx;
+}
+
+.timeline-heading {
+  margin-bottom: 24rpx;
+  font-size: 28rpx;
+  font-weight: 650;
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  min-height: 116rpx;
+}
+
+.timeline-axis {
+  position: relative;
+  flex: 0 0 46rpx;
+}
+
+.timeline-dot {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28rpx;
+  height: 28rpx;
+  color: white;
+  border: 2rpx dashed #b8b0a7;
+  border-radius: 50%;
+  font-size: 17rpx;
+}
+
+.timeline-dot--done {
+  background: var(--moss);
+  border: 0;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 28rpx;
+  bottom: -2rpx;
+  left: 13rpx;
+  width: 2rpx;
+  background: #ddd5cc;
+}
+
+.timeline-content {
+  flex: 1;
+}
+
+.timeline-title {
+  font-size: 25rpx;
+  font-weight: 620;
+}
+
+.timeline-note {
+  margin-top: 8rpx;
+  color: var(--muted);
+  font-size: 20rpx;
+  line-height: 1.5;
+}
+
+.timeline-time {
+  margin-left: 10rpx;
+  color: var(--soft);
+  font-size: 18rpx;
+}
+
+.modify-button {
+  margin-top: 34rpx;
+}
+
+.text-button {
+  width: 100%;
+  margin-top: 26rpx;
+  color: var(--muted);
+  font-size: 23rpx;
+}
+
+.detail-state {
+  padding: 180rpx 40rpx 80rpx;
+  text-align: center;
+}
+
+.detail-state__title {
+  font-size: 30rpx;
+  font-weight: 650;
+}
+
+.detail-state__note {
+  margin-top: 14rpx;
+  color: var(--muted);
+  font-size: 23rpx;
+  line-height: 1.6;
+}
+
+.detail-state__action {
+  width: 260rpx;
+  margin: 30rpx auto 0;
+}
+
+.confirmed-line {
+  margin-top: 20rpx;
+  padding: 16rpx 18rpx;
+  color: var(--moss);
+  background: #e8ece3;
+  border-radius: 16rpx;
+  font-size: 22rpx;
+  line-height: 1.6;
+}
+
+.cancel-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 88rpx;
+  margin-top: 20rpx;
+  color: #a14f43;
+  background: transparent;
+  border: 1rpx solid #c9897d;
+  border-radius: 22rpx;
+  font-size: 27rpx;
+}

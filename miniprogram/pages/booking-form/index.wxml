@@ -1,0 +1,160 @@
+<view class="form-page">
+  <view class="stepper">
+    <view wx:for="{{steps}}" wx:key="number" class="stepper-item {{step >= item.number ? 'stepper-item--active' : ''}}">
+      <view class="stepper-circle">{{item.number}}</view>
+      <text class="stepper-label">{{item.label}}</text>
+      <view wx:if="{{item.number < 3}}" class="stepper-line"></view>
+    </view>
+  </view>
+
+  <view wx:if="{{loading}}" class="form-state">
+    <view class="form-state__title">正在准备预约表单</view>
+    <view class="form-state__note">正在读取最新选项和档期</view>
+  </view>
+
+  <view wx:elif="{{errorMessage}}" class="form-state">
+    <view class="form-state__title">表单暂时无法加载</view>
+    <view class="form-state__note">{{errorMessage}}</view>
+    <button class="secondary-button form-retry" bindtap="retryLoad">重新加载</button>
+  </view>
+
+  <block wx:else>
+    <view wx:if="{{isEditing}}" class="editing-banner">正在修改预约 {{bookingNo}}</view>
+
+    <view class="form-content">
+      <view wx:if="{{step === 1}}" class="form-step">
+        <view class="form-title">想拍什么</view>
+        <view class="form-note">先选择大致方向，具体内容可以之后慢慢沟通。</view>
+
+        <view class="field-title">拍摄类型 <text>必选</text></view>
+        <view class="choice-list">
+          <view wx:for="{{shootTypes}}" wx:key="code" class="choice-row {{draft.shootType === item.code ? 'choice-active' : ''}}" data-field="shootType" data-code="{{item.code}}" bindtap="selectSingle">
+            <view class="type-choice-copy">
+              <view class="type-choice-heading"><text class="type-mark">{{item.mark}}</text><text class="choice-name">{{item.name}}</text></view>
+              <view class="choice-note">{{item.note}}</view>
+            </view>
+            <view class="choice-dot"></view>
+          </view>
+        </view>
+
+        <view class="field-title">喜欢的风格 <text>必选</text></view>
+        <view class="choice-list">
+          <view wx:for="{{styles}}" wx:key="code" class="choice-row {{draft.style === item.code ? 'choice-active' : ''}}" data-field="style" data-code="{{item.code}}" bindtap="selectSingle">
+            <view><view class="choice-name">{{item.name}}</view><view class="choice-note">{{item.description}}</view></view>
+            <view class="choice-dot"></view>
+          </view>
+        </view>
+
+        <view class="field-title">成片质感 <text>必选</text></view>
+        <view class="choice-list">
+          <view wx:for="{{shootMethods}}" wx:key="code" class="choice-row {{draft.shootMethod === item.code ? 'choice-active' : ''}}" data-field="shootMethod" data-code="{{item.code}}" bindtap="selectSingle">
+            <view><view class="choice-name">{{item.name}}</view><view class="choice-note">{{item.description}}</view></view>
+            <view class="choice-dot"></view>
+          </view>
+        </view>
+
+        <view wx:if="{{props.length}}" class="field-title">想带的道具 <text>最多三项</text></view>
+        <view wx:if="{{props.length}}" class="chip-list">
+          <view wx:for="{{props}}" wx:key="code" class="choice-chip {{item.selected ? 'choice-chip--active' : ''}}" data-code="{{item.code}}" bindtap="toggleProp">{{item.name}}</view>
+        </view>
+
+        <view class="input-group participant-input">
+          <text class="input-label">参与人数</text>
+          <input class="text-input" type="number" maxlength="2" data-field="participantCount" bindinput="onInput" value="{{draft.participantCount}}" />
+          <view class="input-help">填写 1–10 人，具体安排提交后确认。</view>
+        </view>
+      </view>
+
+      <view wx:if="{{step === 2}}" class="form-step">
+        <view class="form-title">选一个舒服的时间</view>
+        <view class="form-note">这里只展示摄影师开放的意向档期，提交后再最终确认。</view>
+
+        <view class="month-switcher">
+          <view class="month-button {{canPreviousMonth ? '' : 'month-button--disabled'}}" hover-class="{{canPreviousMonth ? 'month-button--pressed' : 'none'}}" aria-role="button" aria-label="上一个月" data-direction="-1" bindtap="changeMonth">‹</view>
+          <view class="month-title">{{monthTitle}}</view>
+          <view class="month-button {{canNextMonth ? '' : 'month-button--disabled'}}" hover-class="{{canNextMonth ? 'month-button--pressed' : 'none'}}" aria-role="button" aria-label="下一个月" data-direction="1" bindtap="changeMonth">›</view>
+        </view>
+
+        <scroll-view wx:if="{{availableDates.length}}" class="date-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+          <view class="date-list">
+            <view wx:for="{{availableDates}}" wx:key="date" class="date-card {{draft.date === item.date ? 'date-card--active' : ''}}" data-field="date" data-code="{{item.date}}" bindtap="selectSingle">
+              <text class="date-week">{{item.week}}</text>
+              <text class="date-number">{{item.label}}</text>
+            </view>
+          </view>
+        </scroll-view>
+        <view wx:else class="inline-empty">本月暂时没有开放档期，可以查看其他月份。</view>
+
+        <view class="field-title">时间段 <text>必选</text></view>
+        <view wx:if="{{periods.length}}" class="period-list">
+          <view wx:for="{{periods}}" wx:key="code" class="period-card {{draft.period === item.code ? 'choice-active' : ''}}" data-field="period" data-code="{{item.code}}" bindtap="selectSingle">
+            <view class="period-name">{{item.label}}</view>
+            <view class="period-note">{{item.public_note || '具体时间提交后确认'}}</view>
+          </view>
+        </view>
+        <view wx:else class="inline-empty">请先选择一个有档期的日期。</view>
+
+        <view class="field-title">拍摄地点 <text>必选</text></view>
+        <view class="location-list">
+          <view wx:for="{{locations}}" wx:key="code" class="location-row {{draft.location === item.code ? 'location-row--active' : ''}}" data-field="location" data-code="{{item.code}}" bindtap="selectSingle">
+            <view><view class="location-name">{{item.name}}</view><view class="location-note">{{item.description}}</view></view>
+            <view class="choice-dot"></view>
+          </view>
+        </view>
+        <view wx:if="{{draft.location === 'custom'}}" class="input-group">
+          <text class="input-label">意向区域</text>
+          <input class="text-input" placeholder="填写大致区域，不必填写详细住址" maxlength="200" data-field="customLocation" bindinput="onInput" value="{{draft.customLocation}}" />
+        </view>
+
+        <view class="field-title">预算范围 <text>必选</text></view>
+        <view class="choice-list">
+          <view wx:for="{{budgets}}" wx:key="code" class="choice-row {{draft.budget === item.code ? 'choice-active' : ''}}" data-field="budget" data-code="{{item.code}}" bindtap="selectSingle">
+            <view><view class="choice-name">{{item.name}}</view><view class="choice-note">{{item.description}}</view></view>
+            <view class="choice-dot"></view>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{step === 3}}" class="form-step">
+        <view class="form-title">怎么联系你</view>
+        <view class="form-note">联系方式只用于这次预约沟通，不会公开展示。</view>
+
+        <view class="summary-card">
+          <view class="summary-row"><text>拍摄类型</text><text>{{summary.shootType}}</text></view>
+          <view class="summary-row"><text>拍摄风格</text><text>{{summary.style}}</text></view>
+          <view class="summary-row"><text>成片质感</text><text>{{summary.shootMethod}}</text></view>
+          <view class="summary-row"><text>意向档期</text><text>{{summary.schedule}}</text></view>
+          <view class="summary-row"><text>拍摄地点</text><text>{{summary.location}}</text></view>
+          <view class="summary-row"><text>预算范围</text><text>{{summary.budget}}</text></view>
+        </view>
+
+        <view class="input-group">
+          <text class="input-label">联系人</text>
+          <input class="text-input" placeholder="怎么称呼你" maxlength="30" data-field="name" bindinput="onInput" value="{{draft.name}}" />
+        </view>
+
+        <view class="input-group">
+          <text class="input-label">手机号</text>
+          <input class="text-input" type="number" placeholder="{{isEditing ? '不修改手机号可留空' : '用于确认档期'}}" maxlength="11" data-field="phone" bindinput="onInput" value="{{draft.phone}}" />
+          <view wx:if="{{isEditing && currentPhoneMasked}}" class="input-help">当前手机号：{{currentPhoneMasked}}</view>
+        </view>
+
+        <view class="input-group">
+          <text class="input-label">补充想法 <text class="input-optional">选填</text></text>
+          <textarea class="text-area" placeholder="例如同行人数、想拍的感觉，或自带花束、书本等物品" maxlength="500" data-field="remark" bindinput="onInput" value="{{draft.remark}}"></textarea>
+        </view>
+
+        <view class="agreement-row" bindtap="toggleTerms">
+          <view class="agreement-box {{draft.termsAccepted ? 'agreement-box--active' : ''}}">{{draft.termsAccepted ? '✓' : ''}}</view>
+          <view class="agreement-text">我已阅读并同意<text catchtap="openPolicies">《拍摄须知与隐私说明》</text></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="form-actions safe-bottom">
+      <button wx:if="{{step > 1}}" class="back-button" bindtap="previousStep" disabled="{{submitting}}">上一步</button>
+      <button wx:if="{{step < 3}}" class="primary-button next-button" bindtap="nextStep">下一步</button>
+      <button wx:else class="primary-button next-button" bindtap="submitBooking" loading="{{submitting}}" disabled="{{submitting}}">{{isEditing ? '保存预约修改' : '提交预约意向'}}</button>
+    </view>
+  </block>
+</view>

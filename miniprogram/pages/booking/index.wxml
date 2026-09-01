@@ -1,0 +1,69 @@
+<view class="page-shell booking-page">
+  <view class="booking-heading">
+    <text class="booking-kicker">预约拍摄</text>
+    <view class="page-title">想怎么拍？</view>
+    <view class="page-subtitle">先选一个大致方向，其他细节填写时再补充。</view>
+  </view>
+
+  <view wx:if="{{loading}}" class="booking-state surface-card">
+    <view class="booking-state__title">正在加载预约信息</view>
+    <view class="booking-state__note">请稍候片刻</view>
+  </view>
+
+  <view wx:elif="{{errorMessage}}" class="booking-state surface-card">
+    <view class="booking-state__title">暂时无法加载</view>
+    <view class="booking-state__note">{{errorMessage}}</view>
+    <button class="booking-state__action" bindtap="retryLoad">重新加载</button>
+  </view>
+
+  <block wx:else>
+    <view class="section-header">
+      <view class="section-title">选择拍摄类型</view>
+      <text class="section-note">点击直接填写</text>
+    </view>
+
+    <view class="booking-type-grid">
+      <view
+        wx:for="{{shootTypes}}"
+        wx:key="code"
+        class="booking-type-card"
+        data-type="{{item.code}}"
+        bindtap="chooseType"
+      >
+        <view class="booking-type-mark">{{item.mark}}</view>
+        <view class="booking-type-name">{{item.name}}</view>
+        <view class="booking-type-note">{{item.note}}</view>
+        <view class="booking-type-arrow">›</view>
+      </view>
+    </view>
+
+    <view wx:if="{{shootTypes.length === 0}}" class="booking-state surface-card">
+      <view class="booking-state__title">暂未开放预约类型</view>
+      <view class="booking-state__note">摄影师完成配置后即可填写</view>
+    </view>
+
+    <view class="section-header process-heading">
+      <view class="section-title">预约流程</view>
+      <text class="section-note">提交后再确认</text>
+    </view>
+
+    <view class="process-card surface-card">
+      <view wx:for="{{process}}" wx:key="number" class="process-item">
+        <view class="process-number">{{item.number}}</view>
+        <view class="process-title">{{item.title}}</view>
+        <view wx:if="{{index < process.length - 1}}" class="process-arrow">→</view>
+      </view>
+    </view>
+
+    <view class="policy-entry" bindtap="openPolicies">
+      <view>
+        <view class="policy-entry__title">拍摄须知与隐私说明</view>
+        <view class="policy-entry__note">预约前可以先了解安全、改期和信息使用规则</view>
+      </view>
+      <view class="policy-entry__arrow">›</view>
+    </view>
+
+    <button class="primary-button booking-action" bindtap="startBooking" disabled="{{shootTypes.length === 0}}">填写预约信息</button>
+    <view class="booking-footnote">提交后由摄影师与你确认准确档期和费用。</view>
+  </block>
+</view>

@@ -1,0 +1,27 @@
+[Unit]
+Description=Yuepai Sensitive Data Retention Cleanup
+After=network-online.target mysqld.service
+
+[Service]
+Type=oneshot
+User=yuepai
+Group=yuepai
+WorkingDirectory=/opt/example-app/current/backend
+EnvironmentFile=/etc/example-app/yuepai.env
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/example-app/current/.venv/bin/yuepai-retention-cleanup
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+ReadWritePaths=/opt/example-app/shared /srv/example-app/media
+StandardOutput=journal
+StandardError=journal

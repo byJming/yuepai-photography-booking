@@ -1,0 +1,63 @@
+<view class="detail-shell">
+  <view wx:if="{{loading}}" class="detail-state">
+    <view class="detail-state__title">正在加载预约</view>
+    <view class="detail-state__note">请稍候片刻</view>
+  </view>
+
+  <view wx:elif="{{errorMessage}}" class="detail-state">
+    <view class="detail-state__title">暂时无法查看预约</view>
+    <view class="detail-state__note">{{errorMessage}}</view>
+    <button class="secondary-button detail-state__action" bindtap="retryLoad">重新加载</button>
+  </view>
+
+  <block wx:elif="{{booking}}">
+    <view wx:if="{{isNew}}" class="success-banner">预约意向已成功提交，摄影师确认后状态会在这里更新。</view>
+
+    <view class="status-hero">
+      <view class="status-clock">
+        <view class="clock-hand clock-hand--hour"></view>
+        <view class="clock-hand clock-hand--minute"></view>
+      </view>
+      <view class="status-title">{{booking.statusText}}</view>
+      <view class="status-note">{{booking.statusNote}}</view>
+    </view>
+
+    <view class="summary surface-card">
+      <view class="summary-content">
+        <view class="summary-title">{{booking.shootTypeName}} · {{booking.styleName}}</view>
+        <view class="summary-line"><text class="summary-icon">质</text>{{booking.shootMethodName}}</view>
+        <view class="summary-line"><text class="summary-icon">日</text>{{booking.date}}</view>
+        <view class="summary-line"><text class="summary-icon">时</text>{{booking.period}}</view>
+        <view class="summary-line"><text class="summary-icon">地</text>{{booking.location}}</view>
+        <view class="summary-line"><text class="summary-icon">人</text>{{booking.participant_count}} 人</view>
+        <view class="summary-line"><text class="summary-icon">预</text>{{booking.budgetName}}</view>
+        <view wx:if="{{booking.confirmedTime}}" class="confirmed-line">已确认时间：{{booking.confirmedTime}}</view>
+      </view>
+    </view>
+
+    <view class="contact-card surface-card">
+      <view class="contact-row"><text>预约编号</text><text>{{booking.bookingNo}}</text></view>
+      <view class="contact-row"><text>联系人</text><text>{{booking.contactName}}</text></view>
+      <view class="contact-row"><text>手机号</text><text>{{booking.phoneMasked}}</text></view>
+    </view>
+
+    <view class="timeline-card surface-card">
+      <view class="timeline-heading">预约进度</view>
+      <view wx:for="{{timeline}}" wx:key="time" class="timeline-item">
+        <view class="timeline-axis">
+          <view class="timeline-dot timeline-dot--done">✓</view>
+          <view wx:if="{{index < timeline.length - 1}}" class="timeline-line"></view>
+        </view>
+        <view class="timeline-content">
+          <view class="timeline-title">{{item.title}}</view>
+          <view class="timeline-note">{{item.note}}</view>
+        </view>
+        <view class="timeline-time">{{item.time}}</view>
+      </view>
+    </view>
+
+    <button wx:if="{{canModify}}" class="secondary-button modify-button" bindtap="modifyBooking">修改预约意向</button>
+    <button wx:if="{{canCancel}}" class="cancel-button" bindtap="cancelBooking" loading="{{cancelling}}" disabled="{{cancelling}}">取消预约</button>
+    <button class="text-button" bindtap="viewWorks">返回看看作品</button>
+  </block>
+</view>

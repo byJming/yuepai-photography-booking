@@ -1,0 +1,98 @@
+<view class="page-shell works-page">
+  <view class="brand-row">
+    <view>
+      <text class="brand-eyebrow">{{brand.eyebrow}}</text>
+      <view class="page-title">{{brand.name}}</view>
+    </view>
+    <view class="availability-pill {{availabilityStatus.available ? '' : 'availability-pill--unavailable'}}">
+      <view class="availability-dot"></view>
+      <text>{{availabilityStatus.text}}</text>
+    </view>
+  </view>
+
+  <view wx:if="{{loading}}" class="state-card surface-card">
+    <view class="state-title">正在加载作品</view>
+    <view class="state-note">请稍候片刻</view>
+  </view>
+
+  <view wx:elif="{{errorMessage}}" class="state-card surface-card">
+    <view class="state-title">暂时没有加载成功</view>
+    <view class="state-note">{{errorMessage}}</view>
+    <button class="state-action" bindtap="retryLoad">重新加载</button>
+  </view>
+
+  <block wx:else>
+    <view
+      wx:if="{{featuredSeries}}"
+      class="hero-card"
+      bindtap="openSeries"
+      data-slug="{{featuredSeries.slug}}"
+    >
+      <image class="hero-image" src="{{featuredSeries.cover}}" mode="aspectFill"></image>
+      <view class="hero-shade"></view>
+      <view class="hero-copy">
+        <text class="hero-kicker">本月精选</text>
+        <text class="hero-title">{{brand.monthlyTitle}}</text>
+        <text class="hero-subtitle">{{brand.monthlySubtitle}}</text>
+        <view class="hero-link">查看这一组 <text class="hero-arrow">→</text></view>
+      </view>
+    </view>
+
+    <scroll-view class="category-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="category-list">
+        <view
+          wx:for="{{categories}}"
+          wx:key="code"
+          class="category-item {{activeCategory === item.code ? 'category-item--active' : ''}}"
+          data-code="{{item.code}}"
+          bindtap="selectCategory"
+        >
+          {{item.name}}
+        </view>
+      </view>
+    </scroll-view>
+
+    <view class="section-header">
+      <view>
+        <view class="section-title">拍过的日子</view>
+        <view class="section-caption">不是标准答案，是每个人自己的样子</view>
+      </view>
+      <text class="section-note">{{visibleSeries.length}} 组</text>
+    </view>
+
+    <view class="portfolio-grid">
+      <view
+        wx:for="{{visibleSeries}}"
+        wx:key="slug"
+        class="portfolio-card"
+        data-slug="{{item.slug}}"
+        bindtap="openSeries"
+      >
+        <image class="portfolio-image" src="{{item.cover}}" mode="aspectFill" lazy-load></image>
+        <view class="portfolio-shade"></view>
+        <view class="portfolio-meta">
+          <view class="portfolio-tags">
+            <text wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this" class="portfolio-tag">{{tag}}</text>
+          </view>
+          <text class="portfolio-title">{{item.title}}</text>
+          <text class="portfolio-subtitle">{{item.subtitle}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{visibleSeries.length === 0 && !featuredSeries}}" class="empty-card surface-card">
+      <view class="empty-mark">○</view>
+      <view class="empty-title">作品正在整理中</view>
+      <view class="empty-note">摄影师发布后会在这里展示</view>
+    </view>
+
+    <view wx:if="{{loadingMore}}" class="loading-more">正在加载更多作品</view>
+
+    <view class="story-card surface-card">
+      <text class="story-kicker">拍摄小记</text>
+      <text class="story-title">不太会面对镜头，也没有关系。</text>
+      <text class="story-text">拍摄会从散步和聊天开始。比起做很多标准动作，更希望留下你本来就有的神情。</text>
+      <view class="story-button" bindtap="startBooking">看看怎么预约 <text>→</text></view>
+    </view>
+  </block>
+</view>

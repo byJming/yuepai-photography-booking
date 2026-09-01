@@ -1,0 +1,15 @@
+<view class="policy-page">
+  <view class="policy-head">
+    <text class="policy-kicker">见面之前</text>
+    <view class="policy-title">拍摄须知与隐私说明</view>
+    <view class="policy-version">{{versionText}}</view>
+  </view>
+
+  <view class="policy-section"><view class="policy-number">01</view><view class="policy-content"><view class="policy-subtitle">服务范围</view><view class="policy-text">{{content.service_scope}}</view></view></view>
+  <view class="policy-section"><view class="policy-number">02</view><view class="policy-content"><view class="policy-subtitle">档期与费用</view><view class="policy-text">{{content.schedule_and_pricing}}</view></view></view>
+  <view class="policy-section"><view class="policy-number">03</view><view class="policy-content"><view class="policy-subtitle">安全与改期</view><view class="policy-text">{{content.safety_and_reschedule}}</view></view></view>
+  <view class="policy-section"><view class="policy-number">04</view><view class="policy-content"><view class="policy-subtitle">隐私与作品展示</view><view class="policy-text">{{content.privacy_and_display}}</view></view></view>
+  <view class="policy-section"><view class="policy-number">05</view><view class="policy-content"><view class="policy-subtitle">取消与数据删除</view><view class="policy-text">{{content.cancellation_rules}}</view></view></view>
+
+  <view class="policy-note">如需删除个人数据，可在“我的预约”页面提交申请。存在未完成预约、争议或必要留存义务时，申请可能需要人工核对后处理。</view>
+</view>

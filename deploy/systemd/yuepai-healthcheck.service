@@ -1,0 +1,22 @@
+[Unit]
+Description=Yuepai Local Readiness Check
+After=yuepai-api.service
+
+[Service]
+Type=oneshot
+User=yuepai
+Group=yuepai
+ExecStart=/opt/example-app/current/deploy/scripts/healthcheck.sh http://127.0.0.1:8100
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+StandardOutput=journal
+StandardError=journal

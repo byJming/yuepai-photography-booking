@@ -1,0 +1,11 @@
+[Unit]
+Description=Check Yuepai Readiness Every Five Minutes
+
+[Timer]
+OnBootSec=2m
+OnUnitActiveSec=5m
+AccuracySec=30s
+Unit=yuepai-healthcheck.service
+
+[Install]
+WantedBy=timers.target

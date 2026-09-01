@@ -1,0 +1,11 @@
+[Unit]
+Description=Run Yuepai Backup Daily
+
+[Timer]
+OnCalendar=*-*-* 02:15:00
+Persistent=true
+RandomizedDelaySec=15m
+Unit=yuepai-backup.service
+
+[Install]
+WantedBy=timers.target
